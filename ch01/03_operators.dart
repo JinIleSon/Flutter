@@ -1,20 +1,29 @@
 /*
     날짜 : 2025/10/23
     이름 : 손진일
-    내용 : 1장 Flutter 개발환경 구축
-
-    - Android Studio 설치
-    - Flutter SDK 다운로드 및 압축 해제
-    - Android Studio > plugins > flutter, dart 플러그인 설치
-
+    내용 : 3장 연산자
  */
 
-import 'dart:io';
 
 void main(){
-  print('Hello World!!');
-  print("Hello Dart!");
-  print("Dart Version : ${Platform.version}");
 
+  ///////////////////////////////////
+  // 기본 연산자
+  ///////////////////////////////////
+  
+  // 산술 연산자
+  // 대입 연산자
+  // 증감 연산자
+  // 비교 연산자
+  // 논리 연산자
+  // 삼항 연산자
 
+  ///////////////////////////////////
+  // Null 관련 연산자
+  ///////////////////////////////////
+
+  // Null 병합 연산자
+  // Null 대입 연산자
+  // Null 접근 연산자
+  // Null 강제 연산자
 }
