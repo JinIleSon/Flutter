@@ -125,8 +125,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               margin: EdgeInsets.symmetric(vertical: 10), // 위 아래 여백 10
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center, // 기본축 정렬
-                crossAxisAlignment: CrossAxisAlignment.stretch, // 교차축 정렬
+                mainAxisAlignment: MainAxisAlignment.center, // 기본축 정렬(가로 정렬)
+                crossAxisAlignment: CrossAxisAlignment.stretch, // 교차축 정렬(세로 정렬)
                 children: [
                   Container(width: 50, height: 100, color: Colors.red),
                   Container(width: 50, height: 50, color: Colors.green),
