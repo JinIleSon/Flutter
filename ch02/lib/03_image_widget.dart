@@ -44,7 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Image.asset(
             'images/flower2.jpg',
           width:500,
-          height:200), 
+          height:200),
           Image.asset(
               'images/flower3.jpg',
           width: 200,
@@ -52,6 +52,16 @@ class _MyHomePageState extends State<MyHomePage> {
           fit : BoxFit.fill,
           repeat: ImageRepeat.repeatX,
           ),
+          Image.network(
+              'https://picsum.photos/id/237/200/300',
+          width: 100,
+          height: 100,
+          ),
+          Image.network(
+              'https://picsum.photos/id/238/200/300',
+          width: 100,
+          height: 100,
+          )
         ],
       )
     );

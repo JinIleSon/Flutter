@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: '03.Container Widget 실습'),
     );
   }
 }
@@ -32,16 +32,39 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-
-            Text('Hello Flutter!'),
-
-          ],
-        ),
-      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 200,
+            height: 200,
+            color: Colors.red
+          ),
+          Container(
+            width: 200,
+            height: 200,
+            // color: Colors.blue, // decoration 속성을 선언하면 color 속성과 충돌나서 에러
+            margin: EdgeInsets.only(left:10, top: 10),
+            decoration: BoxDecoration(
+              color: Colors.green,
+              border: Border.all(width: 1, color: Colors.black)
+            ),
+            child: Text('green'),
+          ),
+          Container(
+            width: 200,
+            height: 200,
+            decoration: BoxDecoration(
+              border: Border.all(width: 1, color: Colors.orange),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                  image: AssetImage('images/flower1.jpg'),
+                  fit: BoxFit.cover
+              )
+            ),
+          ),
+        ],
+      )
     );
   }
 }
