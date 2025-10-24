@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: '03.Image.Widget 실습'),
     );
   }
 }
@@ -25,38 +25,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('You have pushed the button this many times:'),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /*
+            이미지 asset 등록 설정 ⚠⚠
+            - pubspec.yaml > flutter 하위에 assets 주석 제거 후 이미지 경로 입력
+           */
+          
+          Image.asset('images/flower1.jpg'),
+          Image.asset(
+            'images/flower2.jpg',
+          width:500,
+          height:200), 
+          Image.asset(
+              'images/flower3.jpg',
+          width: 200,
+          height: 200,
+          fit : BoxFit.fill,
+          repeat: ImageRepeat.repeatX,
+          ),
+        ],
+      )
     );
   }
 }
