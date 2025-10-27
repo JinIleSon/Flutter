@@ -3,7 +3,7 @@
   이름 : 손진일
   내용 : Widget Form 실습
 */
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main(){
@@ -29,7 +29,7 @@ class FormPage extends StatefulWidget {
   State<StatefulWidget> createState() => _FormPageState();
 }
 
-class _FormPageState extends State<FormPage>{
+class _FormPageState extends State<FormPage> {
 
   // 폼을 식별하고 상태를 관리하는 전역키 생성
   final _formKey = GlobalKey<FormState>();
@@ -46,12 +46,28 @@ class _FormPageState extends State<FormPage>{
   bool _isSwitched = false;
   String _submitResult = '';
 
+  // 폼 취소 함수
+  void _cancelForm(){
+    _formKey.currentState!.reset();
+
+    _idController.clear();
+    _pwController.clear();
+    _nameController.clear();
+
+    _isCheck = false;
+    _isSwitched = false;
+
+    _submitResult = '';
+
+    // 화면 재빌드
+    setState(() {});
+  }
+
   // 폼 제출 함수
   void _submitForm(){
 
     // 폼 유효성 검사
     if(_formKey.currentState!.validate()){
-
       _formKey.currentState!.save();
 
       String idValue = _idController.text;
@@ -77,7 +93,6 @@ class _FormPageState extends State<FormPage>{
 
   @override
   Widget build(BuildContext context) {
-
     return SingleChildScrollView(
       padding: EdgeInsets.all(10),
       child: Form(
@@ -86,43 +101,46 @@ class _FormPageState extends State<FormPage>{
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextFormField(
+                controller: _idController,
                 decoration: const InputDecoration(
-                  labelText: '아이디',
-                  border: OutlineInputBorder()
+                    labelText: '아이디',
+                    border: OutlineInputBorder()
                 ),
                 validator: (value){
-                  if(value == null || value.isEmpty)
+                  if (value == null || value.isEmpty)
                     return '아이디를 입력하세요.';
-                  if(value.length < 4)
-                    return "아이디는 4자 이상이어야 합니다.";
+                  if (value.length < 4)
+                    return '아이디는 4자 이상이어야 합니다.';
 
                   return null;
                 },
               ),
               const SizedBox(height: 10,),
               TextFormField(
+                controller: _pwController,
                 obscureText: true, // 입력 텍스트 마스킹 처리
                 decoration: const InputDecoration(
-                  labelText: '비밀번호',
-                  border: OutlineInputBorder()
+                    labelText: '비밀번호',
+                    border: OutlineInputBorder()
                 ),
                 validator: (value){
-                  if(value == null || value.isEmpty)
+                  if (value == null || value.isEmpty)
                     return '비밀번호를 입력하세요.';
-                  if(value.length < 6)
-                    return "비밀번호는 6자 이상이어야 합니다.";
+                  if (value.length < 6)
+                    return '비밀번호ㅇ는 6자 이상이어야 합니다.';
 
                   return null;
                 },
               ),
               const SizedBox(height: 10,),
               TextFormField(
+                controller: _nameController,
                 decoration: const InputDecoration(
-                  labelText: '이름',
-                  border: OutlineInputBorder()
+                    labelText: '이름',
+                    border: OutlineInputBorder()
                 ),
                 validator: (value){
-                  if(value == null || value.isEmpty)
+                  if (value == null || value.isEmpty)
                     return '이름을 입력하세요.';
 
                   return null;
@@ -131,47 +149,56 @@ class _FormPageState extends State<FormPage>{
               const SizedBox(height: 10,),
               TextFormField(
                 decoration: const InputDecoration(
-                  labelText: '이메일',
-                  border: OutlineInputBorder()
+                    labelText: '이메일',
+                    border: OutlineInputBorder()
                 ),
                 keyboardType: TextInputType.emailAddress,
                 validator: (value){
-                  if(value == null || value.isEmpty)
+                  if (value == null || value.isEmpty)
                     return '이메일을 입력하세요.';
-                  if(value.contains('@'))
+                  if (!value.contains('@'))
                     return '유효한 이메일이 아닙니다.';
-
                   return null;
+                },
+                onSaved: (value){
+                  _email = value!;
                 },
               ),
 
               const SizedBox(height: 10,),
               CheckboxListTile(
-                  title: const Text('회원 가입에 동의 합니다.'),
-                  value : true,
-                  onChanged: (value){
+                title: const Text('회원 가입에 동의 합니다.'),
+                value: _isCheck,
+                onChanged: (value){
+                  setState(() {
+                    _isCheck = value ?? false;
+                  });
 
-                  },
+                },
                 controlAffinity: ListTileControlAffinity.leading,
                 contentPadding: EdgeInsets.zero,
               ),
+
               const SizedBox(height: 10,),
-              const Text('성별 선택 : ', style: TextStyle(fontSize: 16),),
-              RadioGroup<String>( // 최신 flutter에서는 이걸 사용해야 함
+              const Text('성별 선택', style: TextStyle(fontSize: 16),),
+              RadioGroup<String>(
                   onChanged: (value){
+                    setState(() {
+                      _gender = value ?? '';
+                    });
 
                   },
-                  groupValue: 'M',
+                  groupValue: _gender,
                   child: Row(
                     children: [
                       Expanded(
-                          child: RadioListTile(
+                          child: RadioListTile<String>(
                             value: 'M',
                             title: const Text('남자'),
                           )
                       ),
                       Expanded(
-                          child: RadioListTile(
+                          child: RadioListTile<String>(
                             value: 'F',
                             title: const Text('여자'),
                           )
@@ -187,34 +214,35 @@ class _FormPageState extends State<FormPage>{
                   const Text('푸시 알림 허용'),
                   const Spacer(),
                   Switch(
-                      value: true,
+                      value: _isSwitched,
                       onChanged: (value){
+                        setState(() {
+                          _isSwitched = value;
+                        });
 
                       }
                   )
                 ],
+
               ),
+
               const SizedBox(height: 10,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      onPressed: (){},
+                      onPressed: _cancelForm,
                       child: const Text('취소')
                   ),
-                  const SizedBox(width: 20), // height는 세로, width는 가로 사이 거리 공간
+                  const SizedBox(width: 10,),
                   ElevatedButton(
-                      onPressed: (){},
+                      onPressed: _submitForm,
                       child: const Text('제출')
                   ),
                 ],
               ),
               const SizedBox(height: 10,),
-
-              const SizedBox(height: 10,),
-
-              const SizedBox(height: 10,),
-
+              Text(_submitResult)
             ],
           )
       ),
@@ -222,3 +250,4 @@ class _FormPageState extends State<FormPage>{
   }
 
 }
+
