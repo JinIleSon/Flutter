@@ -1,135 +1,49 @@
 /*
   날짜 : 2025/10/27
   이름 : 손진일
-  내용 : PageView 위젯 실습하기
+  내용 : GridView 위젯 실습하기
 */
+
 
 import 'package:flutter/material.dart';
 
 void main(){
-  //runApp(PageViewTest1());
-  runApp(PageViewTest2());
+  runApp(GridViewTest());
 }
 
-class PageViewTest1 extends StatelessWidget {
-  const PageViewTest1({super.key});
+class GridViewTest extends StatelessWidget {
+  GridViewTest({super.key});
+
+  final List<String> cities = ['서울', '대전', '대구', '부산', '광주'];
 
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       home: Scaffold(
           appBar: AppBar(
-            title: const Text('03.PageView 위젯 실습'),
+            title: const Text('02.GridView 위젯 실습'),
           ),
-          body: PageView(
-            children: [
-              Container(
-                color: Colors.red,
-                alignment: Alignment.center,
-                child: const Text('페이지 1',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              Container(
-                color: Colors.green,
-                alignment: Alignment.center,
-                child: const Text('페이지 2',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              Container(
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: const Text('페이지 3',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-            ],
-          )
-      ),
-    );
-  }
-}
+          body: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,          // 한줄에 표시할 아이템 갯수
+                  crossAxisSpacing: 10,       // 교차축(가로) 그리드 아이템 간격
+                  mainAxisSpacing: 10,        // 메인축(세로) 그리드 아이템 간격
+                  childAspectRatio: 1 / 1.5   // 그리드 아이템 가로/세로 비율 조정
+              ), // grid 형태 정의
+              itemCount: cities.length,
+              itemBuilder: (context, index){
 
-// StatefulWidget 정의 클래스
-class PageViewTest2 extends StatefulWidget {
-  const PageViewTest2({super.key});
+                return Card(
+                  child: Center(
+                    child: Text(cities[index]),
+                  ),
+                );
 
-  @override
-  State<PageViewTest2> createState() {
-    return _PageViewTest2State();
-  }
-}
-
-// StatefulWidget 구현 클래스
-class _PageViewTest2State extends State<PageViewTest2> {
-
-  // PageView Controller 생성
-  final PageController _pageController = PageController(
-      initialPage: 0 // 시작 페이지 인덱스
-  );
-
-  // 상태(위젯 클래스의 속성) 선언
-  int _currentPage = 0;
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(
-            title: const Text('03.Stateful PageView 위젯 실습'),
-          ),
-          body: PageView(
-            controller: _pageController,
-            onPageChanged: (index){
-
-              // 상태 변경 함수를 호출해서 화면 다시 갱신
-              setState(() {
-                _currentPage = index;
-              });
-
-              print('_currentPage : $_currentPage');
-            },
-            children: [
-              Container(
-                color: Colors.red,
-                alignment: Alignment.center,
-                child: Text('페이지 1\n현재 인덱스 $_currentPage',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              Container(
-                color: Colors.green,
-                alignment: Alignment.center,
-                child: Text('페이지 2\n현재 인덱스 $_currentPage',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-              Container(
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: Text('페이지 3\n현재 인덱스 $_currentPage',
-                  style: TextStyle(fontSize: 30),
-                ),
-              ),
-            ],
+              }
           )
       ),
     );
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
