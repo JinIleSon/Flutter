@@ -1,6 +1,6 @@
 /*
   날짜 : 2025/10/27
-  이름 : 김철학
+  이름 : 손진일
   내용 : TabBar 위젯 실습하기
 */
 import 'package:flutter/cupertino.dart';

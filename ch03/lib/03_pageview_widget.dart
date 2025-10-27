@@ -1,6 +1,7 @@
 /*
-
-
+  날짜 : 2025/10/27
+  이름 : 손진일
+  내용 : pageview 위젯 실습하기
  */
 
 import 'package:flutter/material.dart';
