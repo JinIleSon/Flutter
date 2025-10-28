@@ -96,3 +96,36 @@ class _ParentWidgetState extends State<ParentWidget> {
   }
 
 }
+
+class Child1Widget extends State<ParentWidget> {
+
+  @override
+  Widget build(BuildContext context) {
+
+    // provider 접근하기
+    final counterProvider = context.watch<CounterProvider>();
+
+    return Column(
+      children: [
+        Text('Parent Provider count : ${counterProvider._count}',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+
+        const SizedBox(height:10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: (){
+              counterProvider.increment();
+            }, child: const Text('증가')),
+            ElevatedButton(onPressed: (){
+              counterProvider.decrement();
+            }, child: const Text('감소')),
+          ],
+        )
+
+      ],
+    );
+  }
+
+}
