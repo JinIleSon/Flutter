@@ -25,26 +25,17 @@ class _User1RegisterState extends State<User1Register>{
   
   Future<void> _submitForm() async {
 
-    log('submitform...1');
-    log('userid: ${_useridController.text}');
-    log('name: ${_nameController.text}');
-    log('birth: ${_birthController.text}');
-    log('age: ${_ageController.text}');
     if(!_formKey.currentState!.validate()) return;
-    log('submitform...2');
     User1 inputUser = User1(
       userid: _useridController.text,
       name: _nameController.text,
       birth: _birthController.text,
       age: int.tryParse(_ageController.text) ?? 0
     );
-    log('submitform...3');
     try {
       User1 savedUser = await service.postUser(inputUser);
       // print('savedUser : ${savedUser}등록');
-      log('submitform...4');
       await _showDialog('등록성공', '사용자가 성공적으로 등록되었습니다.');
-      log('submitform...5');
       // 목록 이동
       Navigator.pop(context);
 
