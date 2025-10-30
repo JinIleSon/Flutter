@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kmarket_shopping_app/screens/member/login_screen.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -39,7 +40,11 @@ class _HomeTabState extends State<HomeTab>{
       children: [
         Image.asset('images/logo.png', width: 140,),
         IconButton(
-            onPressed: null,
+            onPressed: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => LoginScreen())
+              );
+            },
             icon: Icon(Icons.login, size: 30,),
         )
       ],
