@@ -1,10 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kmarket_shopping_app/screens/member/terms_screen.dart';
 
 class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
+
   @override
   State<StatefulWidget> createState() => _LoginScreenState();
-
 }
 
 class _LoginScreenState extends State<LoginScreen> {
@@ -14,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(title: const Text('로그인'),),
       body: Center(
         child: Padding(
-            padding: EdgeInsets.all(30),
+          padding: EdgeInsets.all(30),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -25,36 +27,35 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               const SizedBox(height: 20,),
               TextField(decoration: InputDecoration(
-                labelText: '아이디 입력',
-                border: OutlineInputBorder()
+                  labelText: '아이디 입력',
+                  border: OutlineInputBorder()
               ),),
-              const SizedBox(height: 20,),
+              const SizedBox(height: 10,),
               TextField(
                 obscureText: true,
                 decoration: InputDecoration(
-                labelText: '비밀번호 입력',
-                border: OutlineInputBorder()
-              ),),
+                    labelText: '비밀번호 입력',
+                    border: OutlineInputBorder()
+                ),),
               const SizedBox(height: 10,),
               SizedBox(
                 width: double.infinity,
                 height: 50,
                 child: ElevatedButton(
-                    onPressed: (){},
-                    child: const Text('로그인', style: TextStyle(fontSize: 20),)
+                    onPressed: null,
+                    child: const Text('로그인', style: TextStyle(fontSize: 20, color: Colors.black),)
                 ),
               ),
               const SizedBox(height: 10,),
               TextButton(
-                  onPressed: (){
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (_) => TermsScreen()),
-                    );
-                  },
-                  child: const Text('회원가입', style: TextStyle(color: Colors.black),)
+                onPressed: (){
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (_) => TermsScreen()),
+                  );
+                },
+                child: const Text('회원가입', style: TextStyle(color: Colors.black)),
               )
             ],
-
           ),
         ),
       ),

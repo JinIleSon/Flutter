@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kmarket_shopping_app/screens/main/cart_tab.dart';
 import 'package:kmarket_shopping_app/screens/main/category_tab.dart';
@@ -12,11 +15,11 @@ class MainTabScreen extends StatefulWidget {
   State<StatefulWidget> createState() => _MainTabScreenState();
 }
 
-class _MainTabScreenState extends State<MainTabScreen> {
+class _MainTabScreenState extends State<MainTabScreen>{
 
   int _selectedIndex = 0;
 
-  void _onTabHandler(int index){
+  void _onTabHandler(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -36,16 +39,16 @@ class _MainTabScreenState extends State<MainTabScreen> {
     return Scaffold(
       appBar: null,
       body: Center(
-        child: _widgetList.elementAt(_selectedIndex)
+          child: _widgetList.elementAt(_selectedIndex)
       ),
       bottomNavigationBar: BottomNavigationBar(
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
-            BottomNavigationBarItem(icon: Icon(Icons.category), label: '카테고리'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: '검색'),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: '마이페이지'),
-            BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: '장바구니'),
-          ],
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
+          BottomNavigationBarItem(icon: Icon(Icons.category), label: '카테고리'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: '검색'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: '마이페이지'),
+          BottomNavigationBarItem(icon: Icon(Icons.shopping_cart), label: '장바구니'),
+        ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.green,
         type: BottomNavigationBarType.fixed,
