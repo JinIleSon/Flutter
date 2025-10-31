@@ -52,7 +52,10 @@ class _MyTabState extends State<MyTab> {
                   ),
                   const Spacer(),
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      // 로그아웃 처리
+                      context.read<AuthProvider>().logout();
+                    },
                     child: const Text('로그아웃'),
                   )
                 ],
