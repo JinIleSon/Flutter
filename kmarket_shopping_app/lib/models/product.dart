@@ -8,7 +8,7 @@ class Product {
    final int delivery;
    final int stock;
 
-   final String etc;
+   final String? etc;
    
   // 추가필드
    final String thumb120;
@@ -16,7 +16,7 @@ class Product {
    final String thumb750;
 
    Product({required this.pno, required this.productName, required this.category, required this.price, required this.point,
-       required this.discount, required this.delivery, required this.stock, required this.etc, required this.thumb120, required this.thumb240,
+       required this.discount, required this.delivery, required this.stock, this.etc, required this.thumb120, required this.thumb240,
        required this.thumb750});
 
    factory Product.fromJson(Map<String, dynamic> json){

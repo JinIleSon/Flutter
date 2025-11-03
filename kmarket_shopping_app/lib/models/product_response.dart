@@ -14,7 +14,7 @@ class ProductResponse {
     List<Product> productList = dtoList.map((product) => Product.fromJson(product)).toList();
 
     return ProductResponse(
-        dtoList: json['dtoList'],
+        dtoList: productList,
         category: json['category'],
         total: json['total']
     );
