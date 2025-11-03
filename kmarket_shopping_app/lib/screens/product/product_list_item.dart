@@ -1,9 +1,8 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kmarket_shopping_app/config/app_config.dart';
 import 'package:kmarket_shopping_app/models/product.dart';
+import 'package:kmarket_shopping_app/screens/product/product_view_screen.dart';
 
 class ProductListItem extends StatelessWidget {
 
@@ -19,8 +18,13 @@ class ProductListItem extends StatelessWidget {
     return GestureDetector(
 
       onTap: () {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('상세 상품 이동')),
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text('상세 상품 이동')),
+        // );
+
+        // 상품 상세 이동
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => ProductViewScreen(product: product,)),
         );
       },
       child: Card(
