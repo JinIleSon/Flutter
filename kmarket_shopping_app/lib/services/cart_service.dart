@@ -80,5 +80,33 @@ class CartService {
 
   }
 
+  Future<bool> deleteCart(int cartid) async{
+
+    try {
+
+      // JWT 가져오기
+      final jwt = await _tokenStorageService.readToken();
+      log('jwt : $jwt');
+
+      final response = await http.delete(
+          Uri.parse('${AppConfig.baseUrl}/cart/$cartid'),
+          headers: {
+            "Content-Type" : "application/json",
+            "Authorization" : "Bearer$jwt"
+          }
+
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(response.statusCode);
+      }
+    }catch(err) {
+      throw Exception(err);
+    }
+
+  }
+
 
 }

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kmarket_shopping_app/config/app_config.dart';
 import 'package:kmarket_shopping_app/models/cart.dart';
 import 'package:kmarket_shopping_app/providers/auth_provider.dart';
 import 'package:kmarket_shopping_app/screens/member/login_screen.dart';
@@ -88,19 +89,107 @@ class _CartTabState extends State<CartTab> {
         builder: (context, snapshot){
 
           final listCart = snapshot.data ?? [];
-          
-          return ListView.builder(
-              itemCount: listCart.length,
-              itemBuilder: (context, index){
-                
-                final cart = listCart[index];
-                
-                return Card(
-                  child: Text('cart : ${cart.cartid}'),
-                );
-              }
+
+          return Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: listCart.length,
+                  itemBuilder: (context, index) {
+
+                    final cart = listCart[index];
+                    final product = cart.product;
+
+                    return Card(
+                      margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
+                      child: ListTile(
+                        leading: Container(
+                          width: 50,
+                          height: 50,
+                          color: Colors.grey[200],
+                          alignment: Alignment.center,
+                          child: Image.network('${AppConfig.baseUrl}/product/image/${product.thumb120}'),
+                        ),
+                        title: Text('${product.productName.substring(0, 20) + '...'}'),
+                        subtitle: Text('상품번호: ${product.pno}\n수량: ${cart.quantity}개\n가격: ${product.price}'),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.delete, color: Colors.redAccent),
+                          onPressed: () async {
+
+                            final result = await cartService.deleteCart(cart.cartid!);
+
+                            if (result) {
+
+                              setState(() {
+                                _futureListCart = _loadCartList();
+                              });
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('상품번호 ${product.pno} 삭제됨')),
+                              );
+                            }
+                          },
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              // 하단 결제 영역
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                    ),
+                  ],
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('총 결제 금액:', style: TextStyle(fontSize: 18)),
+                        Text(
+                          '36000원',
+                          style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 15),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 50,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent,
+                        ),
+                        onPressed: () {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('주문하기 화면으로 이동합니다.')),
+                          );
+                        },
+                        child: const Text(
+                          '주문하기',
+                          style: TextStyle(fontSize: 18, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           );
-        },
+      }
     );
   }
 }
