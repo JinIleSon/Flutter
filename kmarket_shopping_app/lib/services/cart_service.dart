@@ -10,6 +10,34 @@ class CartService {
 
   final _tokenStorageService = TokenStorageService();
 
+  Future<List<dynamic>> getCarts() async{
+
+    try {
+
+      // JWT 가져오기
+      final jwt = await _tokenStorageService.readToken();
+      log('jwt : $jwt');
+
+      final response = await http.get(
+        Uri.parse('${AppConfig.baseUrl}/cart'),
+        headers: {
+          "Content-Type" : "application/json",
+          "Authorization" : "Bearer$jwt"
+        }
+
+      );
+
+      if (response.statusCode == 200) {
+        return jsonDecode(response.body);
+      } else {
+        throw Exception(response.statusCode);
+      }
+    }catch(err) {
+      throw Exception(err);
+    }
+
+  }
+
   Future<Map<String, dynamic>> addCart(int pno, int quantity) async {
 
     try {
@@ -36,6 +64,9 @@ class CartService {
 
       if(response.statusCode == 200){
         log('response.body : ${response.body}');
+
+        // jsonDecode의 반환타입은 Json 문자열이 []이면 List<dynamic>, {}이면 Map<String, dynamic>으로 선언
+
         return jsonDecode(response.body);
       }else {
         log('err...1');
